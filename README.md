@@ -1,6 +1,10 @@
 # E-commerce Automation Framework — automationexercise.com
 
+[![E2E Tests](https://github.com/veri-jpg/ecommerce-automation-framework/actions/workflows/test.yml/badge.svg)](https://github.com/veri-jpg/ecommerce-automation-framework/actions/workflows/test.yml)
+
 QA automation portfolio project: end-to-end UI testing (Page Object Model) and public REST API testing against [automationexercise.com](https://automationexercise.com), built with Playwright + pytest.
+
+Repo: [github.com/veri-jpg/ecommerce-automation-framework](https://github.com/veri-jpg/ecommerce-automation-framework)
 
 ## Tujuan Project
 
@@ -75,6 +79,7 @@ flowchart LR
 ## Cara Menjalankan Test Secara Lokal
 
 ```bash
+git clone https://github.com/veri-jpg/ecommerce-automation-framework.git
 cd ecommerce-automation-framework
 python -m pip install -r requirements.txt
 python -m playwright install chromium
