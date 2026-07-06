@@ -1,0 +1,26 @@
+[
+  {
+    "case": "malformed_email_format",
+    "email": "not-an-email",
+    "password": "Whatever123!",
+    "expected_behavior": "client_validation"
+  },
+  {
+    "case": "empty_email",
+    "email": "",
+    "password": "SomePassword123!",
+    "expected_behavior": "client_validation"
+  },
+  {
+    "case": "empty_password",
+    "email": "someone@example.com",
+    "password": "",
+    "expected_behavior": "client_validation"
+  },
+  {
+    "case": "unregistered_email",
+    "email": "no-such-user-9f8e7d6c5b@example.com",
+    "password": "WrongPassword123!",
+    "expected_behavior": "server_error"
+  }
+]
