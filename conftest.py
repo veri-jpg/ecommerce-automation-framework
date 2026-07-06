@@ -1,4 +1,5 @@
 import os
+import re
 import uuid
 
 import allure
@@ -10,6 +11,11 @@ load_dotenv()
 
 BASE_URL = os.getenv("BASE_URL", "https://automationexercise.com")
 
+AD_DOMAINS = re.compile(
+    r"doubleclick\.net|googlesyndication\.com|google_vignette|adservice\.google|"
+    r"googleadservices\.com|googletagservices\.com|googletagmanager\.com"
+)
+
 
 @pytest.fixture(scope="session")
 def base_url():
@@ -17,6 +23,18 @@ def base_url():
     is created against the URL configured in .env - switching environments
     (staging/prod) means editing one file instead of every test."""
     return BASE_URL
+
+
+@pytest.fixture
+def context(context):
+    """Overrides pytest-playwright's context fixture to block Google ad
+    network requests. automationexercise.com serves ads, and on a fresh
+    browser profile (like a CI runner with no history/cookies) Google's
+    full-page interstitial ad ("vignette") can pop up and swallow clicks
+    meant for the page underneath - e.g. the Place Order button on
+    /checkout, observed failing only in CI, never locally, because of this."""
+    context.route(AD_DOMAINS, lambda route: route.abort())
+    yield context
 
 
 @pytest.fixture(scope="session")

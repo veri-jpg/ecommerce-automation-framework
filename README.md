@@ -160,3 +160,4 @@ Di CI, laporan HTML di-generate otomatis dan diunggah sebagai artifact — tidak
 
 - Test berjalan terhadap situs live pihak ketiga, sehingga bisa sesekali flaky karena jaringan/latency — `pytest-rerunfailures` mengatur 1x retry otomatis (`--reruns 1` di `pytest.ini`).
 - Karena automationexercise.com dipakai bersama banyak orang, semua data yang dibuat test (akun, dsb.) unik per run (`Faker`/`uuid`) dan dibersihkan lagi setelah test selesai.
+- automationexercise.com menampilkan iklan Google, yang di browser session baru (khas runner CI tanpa histori/cookie) bisa muncul sebagai interstitial ad ("vignette") penuh layar dan menutupi tombol yang mau di-klik (pernah kejadian di step "Place Order" pada test checkout, hanya di CI, tidak di lokal). `conftest.py` meng-override fixture `context` bawaan pytest-playwright untuk memblokir request ke domain-domain iklan Google sebelum navigasi apa pun terjadi.
